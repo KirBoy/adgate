@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+    Routes,
+    Route,
+} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import PageNotFound from "./components/pages/PageNotFound";
+import Main from "./components/pages/Main";
+import News from "./components/pages/News";
+import React from "react";
+import Profile from "./components/pages/Profile";
+import Login from "./components/pages/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <Routes>
+            <Route element={<Navigation/>}>
+                <Route path="/" element={<Main/>}/>
+                <Route path="news" element={<News/>}/>
+                <Route path="login" element={<Login/>}/>
+                <Route path="profile" element={
+                    <ProtectedRoute>
+                        <Profile/>
+                    </ProtectedRoute>
+                }/>
+            </Route>
+            <Route path="*" element={<PageNotFound/>}/>
+        </Routes>
+    );
 }
 
 export default App;
